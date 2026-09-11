@@ -1,0 +1,88 @@
+{
+  "custom_rules": [
+    {
+      "id": "RULE-001",
+      "name": "DIRECT_INBOUND_MANAGEMENT_EXPOSURE",
+      "dst_ports": [22, 23, 3389, 445],
+      "dst_port": 22,
+      "action": "ALLOW",
+      "require_external_src": true,
+      "severity": "CRITICAL",
+      "target_vendor": "Cisco ASA / PAN-OS / Fortinet",
+      "message": "Networking Mistake: Direct External Management Connection Allowed to Infrastructure!"
+    },
+    {
+      "id": "RULE-002",
+      "name": "DIRECT_DATABASE_ACCESS",
+      "dst_ports": [3306, 5432, 1433, 1521, 27017],
+      "dst_port": 3306,
+      "action": "ALLOW",
+      "severity": "HIGH",
+      "target_vendor": "Cisco ASA / Linux / PAN-OS",
+      "message": "Security Alert: Direct MySQL/Database Connection Attempt Detected across Subnets!"
+    },
+    {
+      "id": "RULE-003",
+      "name": "INSECURE_CLEARTEXT_EGRESS",
+      "dst_ports": [21, 23],
+      "action": "ALLOW",
+      "severity": "HIGH",
+      "target_vendor": "Palo Alto / Fortinet / Cisco",
+      "message": "Compliance Failure: Insecure Cleartext Protocol (FTP/Telnet) Egress Permitted!"
+    },
+    {
+      "id": "RULE-004",
+      "name": "LATERAL_MOVEMENT_SMB_RPC",
+      "dst_ports": [445, 135, 139],
+      "action": "ALLOW",
+      "require_internal_src": true,
+      "severity": "MEDIUM",
+      "target_vendor": "PAN-OS / Fortinet / Windows",
+      "message": "Lateral Movement Warning: Ephemeral RPC/SMB Connection Between Workstation and Servers!"
+    },
+    {
+      "id": "RULE-005",
+      "name": "SSH_AUTH_BRUTE_FORCE",
+      "dst_ports": [22],
+      "action": "DENY",
+      "match_keyword": "Failed password",
+      "severity": "HIGH",
+      "target_vendor": "Linux Auth (sshd)",
+      "message": "Identity Threat: Repeated SSH Authentication Failures (Potential Brute Force)!"
+    },
+    {
+      "id": "RULE-006",
+      "name": "UNAUTHORIZED_SUDO_ESCALATION",
+      "match_keyword": "pam_unix(sudo:auth): authentication failure",
+      "severity": "CRITICAL",
+      "target_vendor": "Linux Secure Log",
+      "message": "Privilege Escalation Alert: Unauthorized Sudo Execution Attempt on Host!"
+    },
+    {
+      "id": "RULE-007",
+      "name": "WINDOWS_FAILED_LOGON_TAMPERING",
+      "event_ids": [4625, 4720, 4672],
+      "severity": "HIGH",
+      "target_vendor": "Windows Active Directory",
+      "message": "Active Directory Audit: Privileged Account Logon Failure / Account Tampering Detected!"
+    },
+    {
+      "id": "RULE-008",
+      "name": "SECURITY_GROUP_EGRESS_ANY_ANY",
+      "action": "ALLOW",
+      "dst_ip": "0.0.0.0",
+      "severity": "HIGH",
+      "target_vendor": "AWS VPC Flow",
+      "message": "Cloud Misconfiguration: Security Group Egress Any-Any (0.0.0.0/0) on High Ports!"
+    },
+    {
+      "id": "RULE-009",
+      "name": "WAF_WEB_INJECTION_OR_TRAVERSAL",
+      "action": "DENY",
+      "regex_pattern": "(\\.\\./|etc/passwd|<script|UNION\\s+SELECT)",
+      "severity": "CRITICAL",
+      "target_vendor": "Nginx / Cloudflare WAF",
+      "message": "Web Threat Sensor: Path Traversal / SQL Injection Probe Blocked at Perimeter!"
+    }
+  ]
+}
